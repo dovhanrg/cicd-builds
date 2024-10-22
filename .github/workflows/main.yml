@@ -1,45 +1,27 @@
-name: EAS Build
-
 on:
   push:
     branches:
       - main
-  pull_request:
-
 jobs:
-  eas-build:
-    runs-on: macos-latest
-
+  build:
+    runs-on: ubuntu-latest
     steps:
-    # Checkout the code
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
 
-    # Set up Node.js (adjust the version as necessary)
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '22' # or whichever version you need
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
 
-    # Install EAS CLI
-    - name: Install EAS CLI
-      run: npm install -g eas-cli
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
-    # Authenticate with EAS (you need to add EAS token in GitHub Secrets)
-    - name: Authenticate with EAS
-      run: eas login --token ${{ secrets.EAS_TOKEN }}
+      - name: 📦 Install dependencies
+        run: npm install
 
-    # Install dependencies
-    - name: Install dependencies
-      run: npm install
-
-    # Run EAS build
-    - name: Run EAS build
-      run: eas build --platform android #--non-interactive # For Android use `--platform android`
-
-    # Optionally upload build artifacts
-    # - name: Upload artifact
-      # uses: actions/upload-artifact@v3
-      # with:
-        # name: build-artifacts
-        # path: dist/ # Adjust this path to your build output folder
+      - name: 🚀 Build app
+        run: eas build --non-interactive
