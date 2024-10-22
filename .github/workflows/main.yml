@@ -5,3 +5,41 @@ on:
     branches:
       - main
   pull_request:
+
+jobs:
+  eas-build:
+    runs-on: macos-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Set up Node.js (adjust the version as necessary)
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22' # or whichever version you need
+
+    # Install EAS CLI
+    - name: Install EAS CLI
+      run: npm install -g eas-cli
+
+    # Authenticate with EAS (you need to add EAS token in GitHub Secrets)
+    - name: Authenticate with EAS
+      run: eas login --token ${{ secrets.EAS_TOKEN }}
+
+    # Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Run EAS build
+    - name: Run EAS build
+      run: eas build --platform android #--non-interactive # For Android use `--platform android`
+
+    # Optionally upload build artifacts
+    # - name: Upload artifact
+      # uses: actions/upload-artifact@v3
+      # with:
+        # name: build-artifacts
+        # path: dist/ # Adjust this path to your build output folder
