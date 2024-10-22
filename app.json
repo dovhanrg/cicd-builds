@@ -13,13 +13,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rgd.cicdbuilds"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.rgd.cicdbuilds"
     },
     "web": {
       "bundler": "metro",
@@ -29,8 +31,11 @@
     "plugins": [
       "expo-router"
     ],
-    "experiments": {
-      "typedRoutes": true
-    }
+    "extra": {
+      "eas": {
+        "projectId": "329ae412-af11-4fc2-b3bd-d010d24aa2f1"
+      }
+    },
+    "owner": "rgd"
   }
 }
