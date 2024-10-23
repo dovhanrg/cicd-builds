@@ -24,4 +24,4 @@ jobs:
         run: npm install
 
       - name: 🚀 Build app
-        run: EXPO_TOKEN=${{ secrets.EXPO_TOKEN }} eas build --profile production --platform android
+        run: eas build --profile production --platform android --local
