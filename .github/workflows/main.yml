@@ -5,32 +5,45 @@ on:
   push:
     branches:
       - main
+
+env:
+  GREETING: Hello world
+
 jobs:
-  build:
+  greeting_job:
     runs-on: ubuntu-latest
+    env:
+      GREETING_IN_JOB: Hello Job!
     steps:
-      - name: 🏗 Setup repo
-        uses: actions/checkout@v3
-
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4.4.0
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22.x
-
-      - name: 🏗 Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: 📦 Install dependencies
-        run: npm install
-
-      - name: 🚀 Build app
-        run: eas build --profile production --platform android --local
+      - name: "Say hello jobs"
+        run: echo "Workflow env GREETING $GREETING; job env GREETING_IN_JOB - $GREETING_IN_JOB; local env my_name $my_name"
+        env:
+          my_name: Roman
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: 🏗 Setup repo
+#        uses: actions/checkout@v3
+#
+#      - name: Setup Java JDK
+#        uses: actions/setup-java@v4.4.0
+#        with:
+#          distribution: 'temurin'
+#          java-version: '21'
+#
+#      - name: 🏗 Setup Node
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 22.x
+#
+#      - name: 🏗 Setup EAS
+#        uses: expo/expo-github-action@v8
+#        with:
+#          eas-version: latest
+#          token: ${{ secrets.EXPO_TOKEN }}
+#
+#      - name: 📦 Install dependencies
+#        run: npm install
+#
+#      - name: 🚀 Build app
+#        run: eas build --profile production --platform android --local
