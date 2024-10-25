@@ -16,7 +16,7 @@ jobs:
       GREETING_IN_JOB: Hello Job!
     steps:
       - name: "Say hello jobs"
-        run: echo "Workflow env GREETING $GREETING; job env GREETING_IN_JOB - $GREETING_IN_JOB; local env my_name $my_name"
+        run: echo "Workflow env GREETING $GREETING; job env GREETING_IN_JOB - $GREETING_IN_JOB; local env my_name $my_name; mu secret ${{secret.MY_SECRET}}; repo secret - ${{secret.MY_REPO_SECRET}}"
         env:
           my_name: Roman
 #  build:
