@@ -1,10 +1,11 @@
 name: Main workflow
-run-name: Build development app for Android and iOS by @${{ github.actor }}
+run-name: Build ${{github.base_ref}} app for Android and iOS by @${{ github.actor }}
 
 on:
   push:
     branches:
       - main
+      - development
 
 env:
   GREETING: Hello world
@@ -16,7 +17,7 @@ jobs:
       GREETING_IN_JOB: Hello Job!
     steps:
       - name: "Say hello jobs"
-        run: echo "Workflow env GREETING $GREETING; job env GREETING_IN_JOB - $GREETING_IN_JOB; local env my_name $my_name; mu secret ${{secret.MY_SECRET}}; repo secret - ${{secret.MY_REPO_SECRET}}"
+        run: echo "Workflow env GREETING $GREETING; job env GREETING_IN_JOB - $GREETING_IN_JOB; local env my_name $my_name; mu secret ${{secrets.MY_SECRET}}; repo secret - ${{secrets.MY_REPO_SECRET}}"
         env:
           my_name: Roman
 #  build:
